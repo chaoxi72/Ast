@@ -60,9 +60,7 @@ try {
             // 执行 himile 命令并捕获输出
             const output = execSync(`himile -p "${escapedMethod}"`, {
                 encoding: 'utf8',
-                stdio: 'pipe',
-                maxBuffer: 10 * 1024 * 1024, // 10MB 缓冲区，避免输出过多导致卡住
-                timeout: 60 * 1000 // 60s 超时，避免命令长时间无响应
+                stdio: 'pipe'
             });
             
             // 保存结果到文件
