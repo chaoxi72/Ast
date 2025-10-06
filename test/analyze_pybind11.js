@@ -52,6 +52,7 @@ try {
             
             // 先对 method 做转义，避免特殊字符破坏命令行
             const escapedMethod = String(method)
+                .replace(/\\/g, "\\\\")
                 .replace(/'/g, "\\'")
                 .replace(/"/g, '\\"')
                 .replace(/\r?\n/g, ' ');
@@ -59,7 +60,9 @@ try {
             // 执行 himile 命令并捕获输出
             const output = execSync(`himile -p "${escapedMethod}"`, {
                 encoding: 'utf8',
-                stdio: 'pipe'
+                stdio: 'pipe',
+                maxBuffer: 10 * 1024 * 1024, // 10MB 缓冲区，避免输出过多导致卡住
+                timeout: 60 * 1000 // 60s 超时，避免命令长时间无响应
             });
             
             // 保存结果到文件
@@ -67,7 +70,8 @@ try {
             const resultContent = `方法描述:\n${method}\n\n分析结果:\n${output}\n\n---\n`;
             
             fs.writeFileSync(resultFile, resultContent, 'utf8');
-            console.log(`✅ 第 ${index + 1} 个方法分析完成，结果已保存到: ${resultFile}`);
+            const preview = (output || '').slice(0, 200).replace(/\r?\n/g, ' ');
+            console.log(`✅ 第 ${index + 1} 个方法分析完成，结果已保存到: ${resultFile} | 输出预览: ${preview}`);
             
         } catch (error) {
             console.error(`❌ 第 ${index + 1} 个方法分析失败: ${error.message}`);
