@@ -14,7 +14,10 @@ console.log('pybind11 项目分析');
 console.log('='.repeat(70));
 
 const analyzer = new ProjectAnalyzer();
-const gitUrl = 'https://gitee.com/chaoxi72/pybind11.git';
+// 直接在 URL 中写入 Git 账户与密码（注意：请替换为实际账户与密码）
+const gitUsername = 'chaoxi72';
+const gitPassword = 'infinite021227';
+const gitUrl = `https://${encodeURIComponent(gitUsername)}:${encodeURIComponent(gitPassword)}@gitee.com/chaoxi72/pybind11.git`;
 const outputDir = './downloads/pybind11';
 
 console.log(`\nGit URL: ${gitUrl}`);
@@ -47,8 +50,14 @@ try {
         try {
             console.log(`正在分析第 ${index + 1}/${result.methodTexts.length} 个方法...`);
             
+            // 先对 method 做转义，避免特殊字符破坏命令行
+            const escapedMethod = String(method)
+                .replace(/'/g, "\\'")
+                .replace(/"/g, '\\"')
+                .replace(/\r?\n/g, ' ');
+
             // 执行 himile 命令并捕获输出
-            const output = execSync(`himile -p "${method}"`, {
+            const output = execSync(`himile -p "${escapedMethod}"`, {
                 encoding: 'utf8',
                 stdio: 'pipe'
             });
