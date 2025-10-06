@@ -74,7 +74,8 @@ try {
             // 执行 himile 命令并捕获输出
             const output = execSync(`himile -p "${enhancedPrompt}"`, {
                 encoding: 'utf8',
-                stdio: 'pipe'
+                stdio: 'pipe',
+                cwd: outputDir // 将 bash 工作目录切换到下载的 Git 项目目录
             });
             
             // 保存结果到文件
