@@ -1,0 +1,26 @@
+{
+  "name": "ast-code-analyzer",
+  "version": "1.0.0",
+  "description": "AST-based code analyzer for multiple languages",
+  "type": "module",
+  "main": "src/index.js",
+  "dependencies": {
+    "tree-sitter": "^0.21.1",
+    "tree-sitter-c-sharp": "^0.23.1",
+    "tree-sitter-java": "^0.23.5",
+    "tree-sitter-javascript": "^0.21.4",
+    "tree-sitter-python": "^0.21.0"
+  },
+  "scripts": {
+    "analyze:local": "node test/analyze_local_project.js",
+    "analyze:git": "node test/analyze_pybind11.js",
+    "demo": "node test/use_memory_data.js",
+    "test:git-vs-local": "node test/test_git_vs_local.js",
+    "start": "node test/test_git_vs_local.js",
+    "debug:local": "node --inspect test/analyze_local_project.js .",
+    "debug:memory": "node --inspect test/use_memory_data.js",
+    "debug:git-vs-local": "node --inspect test/test_git_vs_local.js",
+    "debug:pybind11": "node --inspect test/analyze_pybind11.js",
+    "debug:break": "node --inspect-brk test/use_memory_data.js"
+  }
+}

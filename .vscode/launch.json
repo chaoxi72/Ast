@@ -1,0 +1,52 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "调试当前项目分析",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/analyze_local_project.js",
+            "args": ["."],
+            "console": "integratedTerminal",
+            "skipFiles": ["<node_internals>/**"],
+            "env": {
+                "NODE_ENV": "development"
+            }
+        },
+        {
+            "name": "调试 pybind11 分析",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/analyze_pybind11.js",
+            "console": "integratedTerminal",
+            "skipFiles": ["<node_internals>/**"]
+        },
+        {
+            "name": "调试 QuickAPI",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/test/use_memory_data.js",
+            "console": "integratedTerminal",
+            "skipFiles": ["<node_internals>/**"],
+            "env": {
+                "DEBUG": "true"
+            }
+        },
+        {
+            "name": "调试单个源文件",
+            "type": "node",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "skipFiles": ["<node_internals>/**"]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "projectPath",
+            "description": "输入要分析的项目路径",
+            "default": ".",
+            "type": "promptString"
+        }
+    ]
+}
